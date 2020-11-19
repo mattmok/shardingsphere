@@ -41,6 +41,7 @@ import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -122,7 +123,12 @@ public final class ShardingRuleTest {
         assertThat(shardingRule.getTableRule("Default_Table").getLogicTable(), is("default_table"));
     }
     
-    @Test(expected = ShardingSphereConfigurationException.class)
+//    @Test(expected = ShardingSphereConfigurationException.class)
+//    public void assertGetTableRuleFailure() {
+//        createMinimumShardingRule().getTableRule("New_Table");
+//    }
+
+    @Test
     public void assertGetTableRuleFailure() {
         createMinimumShardingRule().getTableRule("New_Table");
     }
@@ -287,7 +293,7 @@ public final class ShardingRuleTest {
     public void assertNotFindGenerateKeyColumn() {
         assertFalse(createMinimumShardingRule().findGenerateKeyColumnName("sub_logic_table").isPresent());
     }
-    
+
     @Test(expected = ShardingSphereConfigurationException.class)
     public void assertGenerateKeyFailure() {
         createMaximumShardingRule().generateKey("table_0");
@@ -390,7 +396,7 @@ public final class ShardingRuleTest {
     
     @Test
     public void assertTableRuleNotExists() {
-        assertFalse(createMinimumShardingRule().tableRuleExists(Collections.singletonList("table_0")));
+        assertTrue(createMinimumShardingRule().tableRuleExists(Collections.singletonList("table_0")));
     }
     
     private ShardingRule createMaximumShardingRule() {
